@@ -19,7 +19,7 @@ Kullanıcının cilt durumunu analiz eder, **akne** veya **cilt kuruluğu** gibi
 
 | Rol                   | İsim         | Sorumluluklar                                                                 |
 |------------------------|--------------|------------------------------------------------------------------------------|
-| Product Owner         | İrem Tektaş   | Uygulamanın vizyonunu ve kullanıcı ihtiyaçlarını tanımlar.                   |
+| Product Owner         | İrem Tektaş & Berkay Tekce| Uygulamanın vizyonunu ve kullanıcı ihtiyaçlarını tanımlar.  |
 | AI/ML Engineer        | Abdurrazzak Saymaz| CNN modelini eğitir, veri setlerini hazırlar, mobil uyumlu hale getirir. |
 | Backend Developer     | Berkay Tekce | FastAPI ile görsel analiz ve öneri servislerini geliştirir.                  |
 | Mobile Developer (iOS)| İrem Tektaş  | Kamera arayüzü, API bağlantıları ve kullanıcı arayüzünü tasarlar.            |
