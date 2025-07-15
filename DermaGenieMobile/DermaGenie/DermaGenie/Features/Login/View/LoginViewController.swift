@@ -52,6 +52,14 @@ class LoginViewController: UIViewController {
         let email = loginView.emailTextField.text ?? ""
         let password = loginView.passwordTextField.text ?? ""
         viewModel.login(email: email, password: password)
+        viewModel.onLoginSuccess = { [weak self] in
+            DispatchQueue.main.async {
+                let tabBarController = MainTabBarController()
+                tabBarController.modalPresentationStyle = .fullScreen
+                self?.present(tabBarController, animated: true, completion: nil)
+            }
+        }
+
     }
     
     private func showAlert(title: String, message: String) {

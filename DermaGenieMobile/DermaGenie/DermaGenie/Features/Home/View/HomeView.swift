@@ -11,7 +11,7 @@ import UIKit
 class HomeView: UIView {
 
     let logoImageView: UIImageView = {
-        let iv = UIImageView(image: UIImage(named: "icon")) // "icon" = yüz yıkayan emoji
+        let iv = UIImageView(image: UIImage(named: "icon"))
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFit
         return iv
@@ -37,10 +37,9 @@ class HomeView: UIView {
     }()
 
     let uploadImageView: UIImageView = {
-        let iv = UIImageView(image: UIImage(systemName: "select-img"))
+        let iv = UIImageView(image: UIImage(named: "image"))
         iv.contentMode = .scaleAspectFit
         iv.tintColor = .black
-        iv.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.5)
         iv.layer.cornerRadius = 16
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
@@ -103,7 +102,7 @@ class HomeView: UIView {
             uploadImageView.widthAnchor.constraint(equalToConstant: 200),
             uploadImageView.heightAnchor.constraint(equalToConstant: 200),
 
-            analyzeButton.topAnchor.constraint(equalTo: uploadImageView.bottomAnchor, constant: 24),
+            analyzeButton.topAnchor.constraint(equalTo: uploadImageView.bottomAnchor, constant: 48),
             analyzeButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             analyzeButton.widthAnchor.constraint(equalToConstant: 180),
             analyzeButton.heightAnchor.constraint(equalToConstant: 44),
