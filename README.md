@@ -19,13 +19,13 @@ Kullanıcının cilt durumunu analiz eder, **akne** veya **cilt kuruluğu** gibi
 
 | Rol                   | İsim         | Sorumluluklar                                                                 |
 |------------------------|--------------|------------------------------------------------------------------------------|
-| Product Owner         | İrem Tektaş & Berkay Tekce| Uygulamanın vizyonunu ve kullanıcı ihtiyaçlarını tanımlar.  |
-| AI/ML Engineer        | Abdurrazzak Saymaz| CNN modelini eğitir, veri setlerini hazırlar, mobil uyumlu hale getirir. |
+| Product Owner         | Berkay Tekce| Uygulamanın vizyonunu ve kullanıcı ihtiyaçlarını tanımlar.  |
+| AI/ML Engineer        | Abdurrazzak Saymaz & İrem Tektaş| CNN modelini eğitir, veri setlerini hazırlar, mobil uyumlu hale getirir.|
 | Backend Developer     | Berkay Tekce | FastAPI ile görsel analiz ve öneri servislerini geliştirir.                  |
 | Mobile Developer (iOS)| İrem Tektaş  | Kamera arayüzü, API bağlantıları ve kullanıcı arayüzünü tasarlar.            |
 | GenAI Prompt Designer | Berkay Tekce | GPT-3.5 / Gemini API ile öneri üreten prompt sistemini geliştirir.           |
 | UX/UI Designer        | İrem Tektaş  | Temiz, pastel tonlarda kullanıcı dostu ekranlar tasarlar.                    |
-| Scrum Master          | Barış İncesu | Süreçlerin zamanında ve şeffaf yürütülmesini sağlar, sprint yönetimini yapar.|
+| Scrum Master          | İrem Tektaş  | Süreçlerin zamanında ve şeffaf yürütülmesini sağlar, sprint yönetimini yapar.|
 
 ---
 
