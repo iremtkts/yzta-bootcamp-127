@@ -19,6 +19,8 @@ Uygulama, mobil cihaz kamerası üzerinden alınan yüz görüntülerini analiz 
 **Tespit sonrası:**
 - Estetik sorunlarda (akne, kuruluk) kullanıcılara GenAI destekli kişisel bakım önerileri sunulur.
 - Ciddi dermatolojik bulgularda (melanom şüphesi) kullanıcı doğrudan uzman hekime yönlendirilir.
+DermaGenie, yapay zekâyı sadece analiz aracı olarak değil, aynı zamanda kullanıcıya güven veren, rehberlik eden bir dijital cilt danışmanı olarak konumlandırır.
+
 
 ---
 
@@ -60,7 +62,7 @@ Uygulama, mobil cihaz kamerası üzerinden alınan yüz görüntülerini analiz 
 
 
 
-### Persona: [📄 Personalar](personalar/personalar.pdf)
+### Persona: [📄 Personalar](./personalar/personalar.pdf)
 
 
 ---
@@ -84,7 +86,7 @@ Uygulama, mobil cihaz kamerası üzerinden alınan yüz görüntülerini analiz 
 ---
 
 <details>
-<summary>🧾 Sprint 1 Notları</summary>
+<summary><strong> <span style="font-size:32px">🧾 Sprint 1 Notları</span></strong></summary>
 
 ### 🎯 Veri Keşfi ve Hazırlık:
 Akne, kuruluk, kızarıklık, melanoma gibi durumları analiz etmek için uygun veri setlerini araştırmak ve ön işleme hazırlığını tamamlamak.
@@ -160,8 +162,10 @@ Scrum süreci WhatsApp ve Trello üzerinden yürütülmüştür.
 </details>
 
 <details>
-<summary>🧾 Sprint 2 Notları</summary>
+<summary><strong> <span style="font-size:32px">🧾 Sprint 2 Notları</span></strong></summary>
 
+
+<br>
 ### 🎯 Mobil Arayüz Tasarımı & YOLOv8 Model Eğitimi
 Uygulamanın kullanıcı arayüzünü MVVM mimarisi ve feature-based klasörleme yapısıyla kodlamak, Roboflow’dan elde edilen HAM10000 ve akne-kuruluk gibi sorunları içeren iki veri setinin YOLOv8 ile model eğitimi gerçekleştirmek.
 
@@ -202,17 +206,6 @@ Görevlerin puanları, işin karmaşıklığı, tahmini süresi ve teknik belirs
   <img src="screenshots/wp-4.jpg" width="250"/>
 </p>
 
-#### 📱 Arayüz – Giriş & Anasayfa
-<p align="center">
-  <img src="screenshots/login.png" width="250"/>
-  <img src="screenshots/results.png" width="250"/>
-</p>
-
-#### 📷 Kamera & AI Öneri
-<p align="center">
-  <img src="screenshots/history.png" width="250"/>
-  <img src="screenshots/detail.png" width="250"/>
-</p>
 
 ---
 
