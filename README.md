@@ -166,6 +166,7 @@ Scrum süreci WhatsApp ve Trello üzerinden yürütülmüştür.
 
 
 <br>
+
 ### 🎯 Mobil Arayüz Tasarımı & YOLOv8 Model Eğitimi
 Uygulamanın kullanıcı arayüzünü MVVM mimarisi ve feature-based klasörleme yapısıyla kodlamak, Roboflow’dan elde edilen HAM10000 ve akne-kuruluk gibi sorunları içeren iki veri setinin YOLOv8 ile model eğitimi gerçekleştirmek.
 
