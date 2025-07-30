@@ -10,6 +10,6 @@ pillow-heif>=1.0.0
 
 # --- ML stack ---
 numpy==1.26.4
-opencv-python-headless==4.9.0.80
+opencv-python-headless==4.11.0.86
 ultralytics==8.3.170
 torch==2.6.0

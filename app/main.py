@@ -20,25 +20,27 @@ from ultralytics import YOLO
 # ----------------------------------------------------
 # ENV & PATHS
 # ----------------------------------------------------
-load_dotenv()  # lokal geliştirme için; prod'da Railway env'leri geçerlidir
+load_dotenv()  
 
 BASE_DIR = pathlib.Path(__file__).resolve().parent
 
-# Yazılabilir dizinler (Ultralytics uyarılarını keser)
+
 YOLO_CONFIG_DIR = os.getenv("YOLO_CONFIG_DIR", "/app/.ultralytics")
 os.environ["YOLO_CONFIG_DIR"] = YOLO_CONFIG_DIR
 pathlib.Path(YOLO_CONFIG_DIR).mkdir(parents=True, exist_ok=True)
 
-# Modelleri koyacağımız klasör (varsayılan: /app/models)
+
 MODELS_DIR = pathlib.Path(os.getenv("MODELS_DIR", str(BASE_DIR / "models")))
 MODELS_DIR.mkdir(parents=True, exist_ok=True)
 
 DEFAULT_MODEL_A_PATH = MODELS_DIR / "best_a.pt"
 DEFAULT_MODEL_B_PATH = MODELS_DIR / "best_b.pt"
 
-# PATH env'leri (opsiyonel)
 env_model_a = os.getenv("MODEL_A_PATH", str(DEFAULT_MODEL_A_PATH))
 env_model_b = os.getenv("MODEL_B_PATH", str(DEFAULT_MODEL_B_PATH))
+
+MIN_MODEL_BYTES = int(os.getenv("MIN_MODEL_BYTES", "5000000"))  
+
 
 MODEL_A_PATH = pathlib.Path(env_model_a)
 if not MODEL_A_PATH.is_absolute():
@@ -71,7 +73,7 @@ except Exception:
     RAW_B_THRESHOLDS = DEFAULT_B_THRESHOLDS
 
 DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
-# CPU'da benchmark kapalı; CUDA varsa açık
+
 torch.backends.cudnn.benchmark = torch.cuda.is_available()
 
 DEFAULT_HEADERS = {
@@ -82,10 +84,29 @@ DEFAULT_HEADERS = {
 # ----------------------------------------------------
 # MODELS: indirme & çözümleme
 # ----------------------------------------------------
+
+def _is_lfs_pointer_bytes(b: bytes) -> bool:
+    
+    return b.startswith(b"version https://git-lfs.github.com/spec/v1") or b"git-lfs" in b
+
+def _validate_model_file(path: pathlib.Path, name: str):
+    if not path.exists():
+        raise RuntimeError(f"{name}: dosya yok: {path}")
+    size = path.stat().st_size
+    with open(path, "rb") as f:
+        head = f.read(256)
+    if size < MIN_MODEL_BYTES or _is_lfs_pointer_bytes(head) or head.lstrip().startswith(b"<"):
+       
+        raise RuntimeError(
+            f"{name}: indirilen/okunan dosya geçersiz görünüyor: {path} "
+            f"(size={size}B). HF'de **Raw** linki kullandığından ve dosyanın "
+            f"gerçek .pt olduğundan emin ol."
+        )
+
 async def http_download(url: str, out_path: pathlib.Path, timeout: float = 600.0):
-    """URL'den dosyayı streaming şekilde indirir (public HF için token gerekmez)."""
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    if out_path.exists() and out_path.stat().st_size > 0:
+
+    if out_path.exists() and out_path.stat().st_size >= MIN_MODEL_BYTES:
         return
     async with httpx.AsyncClient(follow_redirects=True, timeout=httpx.Timeout(timeout)) as client:
         async with client.stream("GET", url, headers=DEFAULT_HEADERS) as r:
@@ -94,6 +115,8 @@ async def http_download(url: str, out_path: pathlib.Path, timeout: float = 600.0
                 async for chunk in r.aiter_bytes(chunk_size=1 << 20):
                     if chunk:
                         f.write(chunk)
+
+    _validate_model_file(out_path, f"DOWNLOAD[{url}]")
 
 def _normalize_google_drive(url: str) -> str:
     m = re.search(r"drive\.google\.com/file/d/([^/]+)/", url)
@@ -261,24 +284,25 @@ model_b_class_thresholds: Dict[int, float] = {}
 # STARTUP
 # ----------------------------------------------------
 @app.on_event("startup")
+@app.on_event("startup")
 async def startup():
     global model_a, model_b, model_b_class_thresholds
 
-    # URL varsa indir, yoksa PATH'i kullan (MODELS_DIR altında)
+    # 1) URL verilmişse indir
     if MODEL_A_URL:
         await http_download(MODEL_A_URL, MODEL_A_PATH)
     if MODEL_B_URL:
         await http_download(MODEL_B_URL, MODEL_B_PATH)
 
-    if not MODEL_A_PATH.exists():
-        raise RuntimeError(f"Model A bulunamadı: {MODEL_A_PATH}")
-    if not MODEL_B_PATH.exists():
-        raise RuntimeError(f"Model B bulunamadı: {MODEL_B_PATH}")
+    
+    _validate_model_file(MODEL_A_PATH, "MODEL_A")
+    _validate_model_file(MODEL_B_PATH, "MODEL_B")
+
 
     model_a = YOLO(str(MODEL_A_PATH)).to(DEVICE)
     model_b = YOLO(str(MODEL_B_PATH)).to(DEVICE)
 
-    # Model B için sınıf eşikleri haritası
+
     name2id = {str(v).lower(): k for k, v in model_b.names.items()}
     model_b_class_thresholds.clear()
     for key, thr in (RAW_B_THRESHOLDS or {}).items():

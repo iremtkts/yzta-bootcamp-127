@@ -87,7 +87,7 @@ numpy==1.26.4
     #   ultralytics-thop
 opencv-python==4.11.0.86
     # via ultralytics
-opencv-python-headless==4.9.0.80
+opencv-python-headless==4.11.0.86
     # via -r requirements.in
 orjson==3.11.1
     # via fastapi
