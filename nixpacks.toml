@@ -1,17 +1,20 @@
 # nixpacks.toml
 
+# Nixpacks PATH'e /opt/venv/bin'i ekliyor; yine de her işte açıkça /opt/venv/bin/python kullanalım.
 [phases.install]
 cmds = [
-  
-  "python -m ensurepip --upgrade || true",
- 
-  "python -m pip install --upgrade pip",
-  
-  "python -m pip install --no-cache-dir -r requirements.txt",
- 
-  "python -m pip uninstall -y opencv-python || true",
-  "python -m pip install --no-cache-dir opencv-python-headless==4.11.0.86"
+
+  "python -m venv /opt/venv",
+
+
+  "/opt/venv/bin/python -m pip install --upgrade pip",
+
+
+  "/opt/venv/bin/python -m pip install --no-cache-dir -r requirements.txt",
+
+  "/opt/venv/bin/python -m pip uninstall -y opencv-python || true",
+  "/opt/venv/bin/python -m pip install --no-cache-dir opencv-python-headless==4.11.0.86"
 ]
 
 [start]
-cmd = "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"
+cmd = "/opt/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"
