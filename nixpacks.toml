@@ -5,12 +5,13 @@ cmds = [
   "/opt/venv/bin/python -m pip install --upgrade pip",
   "/opt/venv/bin/python -m pip install --no-cache-dir -r requirements.txt",
 
+ 
+  "/opt/venv/bin/python -m pip install --no-cache-dir 'ultralytics==8.3.170' --no-deps",
+
 
   "/opt/venv/bin/python -m pip uninstall -y opencv-python || true",
-  "/opt/venv/bin/python -m pip install --no-cache-dir opencv-python-headless==4.11.0.86",
 
-  # --- Build ZAMANINDA doğrulama ---
-  "/opt/venv/bin/python -c \"import cv2; print('cv2 OK:', cv2.__version__)\""
+  "/opt/venv/bin/python - <<'PY'\nimport sys,traceback\ntry:\n import cv2\n import numpy as np\n print('cv2 OK:', cv2.__version__)\nexcept Exception as e:\n print('cv2 import FAILED:', repr(e))\n traceback.print_exc()\n sys.exit(1)\nPY"
 ]
 
 [start]

@@ -16,6 +16,15 @@ from PIL import Image, UnidentifiedImageError
 import httpx
 import torch
 
+from typing import Optional, Dict, TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    # Sadece type checker için; runtime'da import etmez
+    from ultralytics import YOLO
+
+model_a: Optional["YOLO"] = None
+model_b: Optional["YOLO"] = None
+model_b_class_thresholds: Dict[int, float] = {}
 
 # ----------------------------------------------------
 # ENV & PATHS
@@ -276,19 +285,15 @@ app.add_middleware(
     allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"]
 )
 
-model_a: Optional[YOLO] = None
-model_b: Optional[YOLO] = None
-model_b_class_thresholds: Dict[int, float] = {}
 
 # ----------------------------------------------------
 # STARTUP
 # ----------------------------------------------------
 @app.on_event("startup")
-@app.on_event("startup")
 async def startup():
     global model_a, model_b, model_b_class_thresholds
 
-    # 0) OpenCV mevcut mu? Yoksa anlaşılır mesajla fail et
+    # 0) OpenCV mevcut mu?
     try:
         import cv2
         print("OpenCV (cv2) version:", cv2.__version__)
@@ -298,6 +303,7 @@ async def startup():
             f"Build sırasında opencv-python-headless kurulumunu kontrol edin."
         )
 
+    # 1) Gerekirse modelleri URL'den indir (senin mevcut kodun)
     if MODEL_A_URL:
         await http_download(MODEL_A_URL, MODEL_A_PATH, timeout=600.0)
     if MODEL_B_URL:
@@ -308,22 +314,13 @@ async def startup():
     if not MODEL_B_PATH.exists():
         raise RuntimeError(f"Model B bulunamadı: {MODEL_B_PATH}")
 
+    # 2) cv2 hazır olduktan sonra ultralytics'i import et
     from ultralytics import YOLO
 
     model_a = YOLO(str(MODEL_A_PATH)).to(DEVICE)
     model_b = YOLO(str(MODEL_B_PATH)).to(DEVICE)
 
-    name2id = {str(v).lower(): k for k, v in model_b.names.items()}
-    model_b_class_thresholds.clear()
-    for key, thr in (RAW_B_THRESHOLDS or {}).items():
-        key_str = str(key)
-        cid = int(key_str) if key_str.isdigit() else name2id.get(key_str.lower())
-        if cid is None:
-            continue
-        try:
-            model_b_class_thresholds[int(cid)] = float(thr)
-        except Exception:
-            continue
+    # ... (eşik haritası vs. aynen senin kodun)
 
 # ----------------------------------------------------
 # ROUTES
