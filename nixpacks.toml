@@ -1,25 +1,27 @@
 # nixpacks.toml
 [phases.install]
 cmds = [
-  # İzole venv
+
   "python -m venv /opt/venv",
   "/opt/venv/bin/python -m pip install --upgrade pip",
 
   
   "/opt/venv/bin/python -m pip install --no-cache-dir -r requirements.txt",
 
-  
+ 
   "/opt/venv/bin/python -m pip uninstall -y opencv-python opencv-contrib-python opencv-contrib-python-headless || true",
 
-
+  
   "/opt/venv/bin/python -m pip install --no-cache-dir --upgrade --force-reinstall 'numpy==1.26.4'",
 
+  
   "/opt/venv/bin/python -m pip install --no-cache-dir --no-deps 'opencv-python-headless==4.9.0.80'",
 
-
+  
   "/opt/venv/bin/python -m pip install --no-cache-dir 'ultralytics==8.3.170' --no-deps",
 
-  "/opt/venv/bin/python - <<'PY'\nimport sys,traceback\ntry:\n import numpy as np; print('numpy OK:', np.__version__)\n import cv2; print('cv2 OK:', cv2.__version__)\nexcept Exception as e:\n print('import FAILED:', repr(e))\n traceback.print_exc(); sys.exit(1)\nPY"
+  
+  "/opt/venv/bin/python - <<'PY'\nimport sys, importlib, traceback\nmods = ['numpy','cv2','tqdm','yaml','requests','psutil']\nfailed = []\nfor m in mods:\n    try:\n        mod = importlib.import_module(m)\n        ver = getattr(mod, '__version__', 'OK')\n        print(f'{m} OK:', ver)\n    except Exception as e:\n        print(f'{m} FAILED:', repr(e))\n        traceback.print_exc()\n        failed.append(m)\nif failed:\n    sys.exit(1)\nPY"
 ]
 
 [start]

@@ -11,6 +11,9 @@ certifi==2025.7.14
     # via
     #   httpcore
     #   httpx
+    #   requests
+charset-normalizer==3.4.2
+    # via requests
 click==8.2.1
     # via
     #   rich-toolkit
@@ -51,6 +54,7 @@ idna==3.10
     #   anyio
     #   email-validator
     #   httpx
+    #   requests
 jinja2==3.1.6
     # via
     #   fastapi
@@ -78,6 +82,7 @@ numpy==1.26.4
     #   pandas
     #   scipy
     #   torchvision
+    #   ultralytics-thop
 opencv-python-headless==4.9.0.80
     # via -r requirements.in
 orjson==3.11.1
@@ -93,6 +98,8 @@ pillow==11.3.0
     #   pillow-heif
     #   torchvision
 pillow-heif==1.0.0
+    # via -r requirements.in
+psutil==7.0.0
     # via -r requirements.in
 pydantic==2.11.7
     # via fastapi
@@ -117,7 +124,11 @@ python-multipart==0.0.20
 pytz==2025.2
     # via pandas
 pyyaml==6.0.2
-    # via uvicorn
+    # via
+    #   -r requirements.in
+    #   uvicorn
+requests==2.32.4
+    # via -r requirements.in
 rich==14.1.0
     # via
     #   rich-toolkit
@@ -144,7 +155,10 @@ torch==2.6.0
     # via
     #   -r requirements.in
     #   torchvision
+    #   ultralytics-thop
 torchvision==0.21.0
+    # via -r requirements.in
+tqdm==4.67.1
     # via -r requirements.in
 typer==0.16.0
     # via fastapi-cli
@@ -164,6 +178,10 @@ tzdata==2025.2
     # via pandas
 ujson==5.10.0
     # via fastapi
+ultralytics-thop==2.0.14
+    # via -r requirements.in
+urllib3==2.5.0
+    # via requests
 uvicorn==0.30.1
     # via
     #   -r requirements.in

@@ -16,6 +16,13 @@ pandas==2.3.1
 matplotlib==3.10.3
 torch==2.6.0
 torchvision==0.21.0
+# --- Ultralytics runtime deps (because we install ultralytics --no-deps) ---
+tqdm==4.67.1
+requests==2.32.4
+pyyaml==6.0.2
+psutil==7.0.0
+ultralytics-thop==2.0.14   # opsiyonel ama Ultralytics bazı fonksiyonlarda çağırıyor
+
 
 # --- OpenCV: SADECE headless ---
 opencv-python-headless==4.9.0.80
