@@ -4,8 +4,8 @@ import json
 import math
 import asyncio
 import pathlib
-from typing import Dict, List, Optional, Any, Union
 import re, base64
+from typing import Dict, List, Optional, Any, Union, TYPE_CHECKING
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Query
@@ -16,10 +16,8 @@ from PIL import Image, UnidentifiedImageError
 import httpx
 import torch
 
-from typing import Optional, Dict, TYPE_CHECKING, Any
-
 if TYPE_CHECKING:
-    # Sadece type checker için; runtime'da import etmez
+    # Sadece type-check için; runtime’da import edilmez
     from ultralytics import YOLO
 
 model_a: Optional["YOLO"] = None
@@ -252,9 +250,12 @@ def total_ms(result) -> float:
     except Exception:
         return math.nan
 
-async def run_model(model: YOLO, image: Image.Image, conf: float, iou: float, max_det: int, imgsz: int) -> Any:
+async def run_model(model: Any, image: Image.Image, conf: float, iou: float, max_det: int, imgsz: int) -> Any:
     def _predict():
-        return model.predict(source=image, conf=conf, iou=iou, max_det=max_det, device=DEVICE, verbose=False, imgsz=imgsz)
+        return model.predict(
+            source=image, conf=conf, iou=iou, max_det=max_det,
+            device=DEVICE, verbose=False, imgsz=imgsz
+        )
     return await asyncio.to_thread(_predict)
 
 # ----------------------------------------------------
@@ -303,7 +304,7 @@ async def startup():
             f"Build sırasında opencv-python-headless kurulumunu kontrol edin."
         )
 
-    # 1) Gerekirse modelleri URL'den indir (senin mevcut kodun)
+    # 1) URL verilmişse indir
     if MODEL_A_URL:
         await http_download(MODEL_A_URL, MODEL_A_PATH, timeout=600.0)
     if MODEL_B_URL:
@@ -314,13 +315,24 @@ async def startup():
     if not MODEL_B_PATH.exists():
         raise RuntimeError(f"Model B bulunamadı: {MODEL_B_PATH}")
 
-    # 2) cv2 hazır olduktan sonra ultralytics'i import et
+    # 2) cv2 hazır -> ultralytics'i şimdi import et
     from ultralytics import YOLO
 
     model_a = YOLO(str(MODEL_A_PATH)).to(DEVICE)
     model_b = YOLO(str(MODEL_B_PATH)).to(DEVICE)
 
-    # ... (eşik haritası vs. aynen senin kodun)
+    # 3) Model-B sınıf eşikleri (isim→id eşlemesi)
+    name2id = {str(v).lower(): k for k, v in model_b.names.items()}
+    model_b_class_thresholds.clear()
+    for key, thr in (RAW_B_THRESHOLDS or {}).items():
+        key_str = str(key)
+        cid = int(key_str) if key_str.isdigit() else name2id.get(key_str.lower())
+        if cid is None:
+            continue
+        try:
+            model_b_class_thresholds[int(cid)] = float(thr)
+        except Exception:
+            continue
 
 # ----------------------------------------------------
 # ROUTES
