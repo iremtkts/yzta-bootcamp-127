@@ -1,23 +1,25 @@
 # nixpacks.toml
 [phases.install]
 cmds = [
+  # İzole venv
   "python -m venv /opt/venv",
   "/opt/venv/bin/python -m pip install --upgrade pip",
 
-  # Lock'lı bağımlılıklar (içinde Ultralytics yok)
+  
   "/opt/venv/bin/python -m pip install --no-cache-dir -r requirements.txt",
 
-  # Güvenlik: yanlışlıkla gelmiş GUI'li opencv/contrib varyantlarını temizle
+  
   "/opt/venv/bin/python -m pip uninstall -y opencv-python opencv-contrib-python opencv-contrib-python-headless || true",
 
-  # Headless'ı zorla (varsa bile yeniden kur)
-  "/opt/venv/bin/python -m pip install --no-cache-dir --upgrade --force-reinstall opencv-python-headless==4.9.0.80",
 
-  # Ultralytics'i bağımlılıksız kur → opencv-python'ı **çekmesin**
+  "/opt/venv/bin/python -m pip install --no-cache-dir --upgrade --force-reinstall 'numpy==1.26.4'",
+
+  "/opt/venv/bin/python -m pip install --no-cache-dir --no-deps 'opencv-python-headless==4.9.0.80'",
+
+
   "/opt/venv/bin/python -m pip install --no-cache-dir 'ultralytics==8.3.170' --no-deps",
 
-  # Build'te cv2'yi doğrula (tam traceback'li)
-  "/opt/venv/bin/python - <<'PY'\nimport sys,traceback\ntry:\n import cv2, numpy as np\n print('cv2 OK:', cv2.__version__)\nexcept Exception as e:\n print('cv2 import FAILED:', repr(e))\n traceback.print_exc()\n sys.exit(1)\nPY"
+  "/opt/venv/bin/python - <<'PY'\nimport sys,traceback\ntry:\n import numpy as np; print('numpy OK:', np.__version__)\n import cv2; print('cv2 OK:', cv2.__version__)\nexcept Exception as e:\n print('import FAILED:', repr(e))\n traceback.print_exc(); sys.exit(1)\nPY"
 ]
 
 [start]
