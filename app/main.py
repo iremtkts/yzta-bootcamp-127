@@ -15,7 +15,7 @@ from PIL import Image, UnidentifiedImageError
 
 import httpx
 import torch
-from ultralytics import YOLO
+
 
 # ----------------------------------------------------
 # ENV & PATHS
@@ -288,20 +288,30 @@ model_b_class_thresholds: Dict[int, float] = {}
 async def startup():
     global model_a, model_b, model_b_class_thresholds
 
-    # 1) URL verilmişse indir
+    # 0) OpenCV mevcut mu? Yoksa anlaşılır mesajla fail et
+    try:
+        import cv2
+        print("OpenCV (cv2) version:", cv2.__version__)
+    except Exception as e:
+        raise RuntimeError(
+            f"OpenCV (cv2) import edilemedi: {e}. "
+            f"Build sırasında opencv-python-headless kurulumunu kontrol edin."
+        )
+
     if MODEL_A_URL:
-        await http_download(MODEL_A_URL, MODEL_A_PATH)
+        await http_download(MODEL_A_URL, MODEL_A_PATH, timeout=600.0)
     if MODEL_B_URL:
-        await http_download(MODEL_B_URL, MODEL_B_PATH)
+        await http_download(MODEL_B_URL, MODEL_B_PATH, timeout=600.0)
 
-    
-    _validate_model_file(MODEL_A_PATH, "MODEL_A")
-    _validate_model_file(MODEL_B_PATH, "MODEL_B")
+    if not MODEL_A_PATH.exists():
+        raise RuntimeError(f"Model A bulunamadı: {MODEL_A_PATH}")
+    if not MODEL_B_PATH.exists():
+        raise RuntimeError(f"Model B bulunamadı: {MODEL_B_PATH}")
 
+    from ultralytics import YOLO
 
     model_a = YOLO(str(MODEL_A_PATH)).to(DEVICE)
     model_b = YOLO(str(MODEL_B_PATH)).to(DEVICE)
-
 
     name2id = {str(v).lower(): k for k, v in model_b.names.items()}
     model_b_class_thresholds.clear()

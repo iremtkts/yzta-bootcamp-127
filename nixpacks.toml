@@ -1,20 +1,17 @@
 # nixpacks.toml
-
-# Nixpacks PATH'e /opt/venv/bin'i ekliyor; yine de her işte açıkça /opt/venv/bin/python kullanalım.
 [phases.install]
 cmds = [
-
   "python -m venv /opt/venv",
-
-
   "/opt/venv/bin/python -m pip install --upgrade pip",
-
-
   "/opt/venv/bin/python -m pip install --no-cache-dir -r requirements.txt",
 
+
   "/opt/venv/bin/python -m pip uninstall -y opencv-python || true",
-  "/opt/venv/bin/python -m pip install --no-cache-dir opencv-python-headless==4.11.0.86"
+  "/opt/venv/bin/python -m pip install --no-cache-dir opencv-python-headless==4.11.0.86",
+
+  # --- Build ZAMANINDA doğrulama ---
+  "/opt/venv/bin/python -c \"import cv2; print('cv2 OK:', cv2.__version__)\""
 ]
 
 [start]
-cmd = "/opt/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"
+cmd = "bash -lc 'mkdir -p /app/models /app/.ultralytics; export YOLO_CONFIG_DIR=/app/.ultralytics; exec /opt/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}'"
