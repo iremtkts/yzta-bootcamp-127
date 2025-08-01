@@ -10,3 +10,4 @@ python-dotenv
 cloudinary
 python-multipart
 alembic
+google-generativeai>=0.7.2

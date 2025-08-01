@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from core.database import Base
 from typing import TYPE_CHECKING
@@ -11,5 +11,7 @@ class Image(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     url = Column(String, nullable=False)
-    public_id = Column(String, nullable=False)  # Cloudinary'den dönen id
+    public_id = Column(String, nullable=False)  
+    is_annotated = Column(Boolean, default=False) 
+
     user = relationship("User", back_populates="images")
