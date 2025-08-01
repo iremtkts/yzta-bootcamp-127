@@ -4,7 +4,7 @@ class ImageBase(BaseModel):
     url: str
 
 class ImageCreate(BaseModel):
-    pass  # Dosya upload ile alınacak
+    pass  
 
 class ImageOut(ImageBase):
     id: int
