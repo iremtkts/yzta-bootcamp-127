@@ -9,6 +9,7 @@ from services.auth import hash_password, verify_password
 from services.jwt import create_access_token
 import random
 from core.config import SECRET_KEY, ALGORITHM
+from utils.normalization import normalize_gender
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -55,13 +56,14 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
 
     if db.query(User).filter(User.email == user.email).first():
         raise HTTPException(status_code=400, detail="Email already registered")
+    normalized_gender = normalize_gender(user.gender)
     db_user = User(
         email=user.email,
         password_hash=hash_password(user.password),
         full_name=user.full_name,
         city=user.city,
         age=user.age,
-        gender=user.gender,
+        gender=normalized_gender,
     )
     db.add(db_user)
     db.commit()
