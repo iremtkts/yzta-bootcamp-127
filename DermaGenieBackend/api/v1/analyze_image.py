@@ -15,7 +15,7 @@ from services.gemini_service import get_skin_care_advice
 import core.cloudinary_config
 from models.image import Image
 
-router = APIRouter(prefix="/ai", tags=["AI Analysis"])
+router = APIRouter(tags=["AI Analysis"])
 
 MODEL_API_URL = "https://yzta-bootcamp-127-production.up.railway.app/detect"
 
@@ -28,18 +28,35 @@ def get_db():
 
 
 @router.post("/analyze-image")
-def analyze_image(file: UploadFile = File(...), db: Session = Depends(get_db), current_user=Depends(get_current_user)):
+def analyze_image(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user)
+):
     analysis_id = str(uuid.uuid4())
 
 
-    original_url, pid_original = upload_image_to_cloudinary(file.file, current_user.id)
+    try:
+        original_url, pid_original = upload_image_to_cloudinary(file.file, current_user.id)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Image upload failed: {e}")
 
-   
+    
     payload = {"image_url": original_url}
-    response = requests.post(MODEL_API_URL, json=payload)
-    response.raise_for_status()
+    try:
+        response = requests.post(MODEL_API_URL, json=payload, timeout=30)
+        response.raise_for_status()                     
+    except requests.exceptions.HTTPError as e:
+        raise HTTPException(
+            status_code=502,
+            detail=f"Model service error: {e.response.status_code} {e.response.reason}"
+        )
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=504, detail=f"Model service unreachable: {e}")
+
     model_result = response.json()
 
+    
     detections = []
     detected_classes = set()
     for model_data in model_result.get("model_outputs", {}).values():
@@ -47,13 +64,20 @@ def analyze_image(file: UploadFile = File(...), db: Session = Depends(get_db), c
             detections.append(det)
             detected_classes.add(det["class_name"])
 
-    skin_care_advice = get_skin_care_advice(list(detected_classes), current_user.gender)
+   
+    try:
+        skin_care_advice = get_skin_care_advice(list(detected_classes), current_user.gender)
+    except Exception as e:
+        skin_care_advice = f"Öneri alınamadı: {e}"
 
+    
+    try:
+        annotated_file = draw_bboxes(original_url, detections)
+        annotated_url, pid_annotated = upload_annotated_to_cloudinary(annotated_file, current_user.id)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Annotated image generation failed: {e}")
 
-    annotated_file = draw_bboxes(original_url, detections)
-    annotated_url, pid_annotated = upload_annotated_to_cloudinary(annotated_file, current_user.id)
-
-
+   
     save_image_record(
         db,
         user_id=current_user.id,
@@ -66,6 +90,7 @@ def analyze_image(file: UploadFile = File(...), db: Session = Depends(get_db), c
         genai_response=skin_care_advice
     )
 
+   
     return {
         "analysis_id": analysis_id,
         "original_url": original_url,
@@ -73,6 +98,7 @@ def analyze_image(file: UploadFile = File(...), db: Session = Depends(get_db), c
         "model_result": model_result,
         "skin_care_advice": skin_care_advice
     }
+
 
 
 @router.get("/list")
