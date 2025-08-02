@@ -1,5 +1,4 @@
-import cv2
-import numpy as np
+
 import requests
 from io import BytesIO
 
@@ -21,6 +20,8 @@ def get_color_for_class(class_name: str):
 
 
 def draw_bboxes(image_url: str, detections: list):
+    import cv2                     # heavy import
+    import numpy as np 
   
     resp = requests.get(image_url)
     resp.raise_for_status()

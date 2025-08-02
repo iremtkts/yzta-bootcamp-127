@@ -1,8 +1,6 @@
-import google.generativeai as genai
+
 from core.config import GEMINI_API_KEY
 
-
-genai.configure(api_key=GEMINI_API_KEY)
 
 from utils.normalization import normalize_gender
 
@@ -16,6 +14,14 @@ def get_skin_care_advice(classes: list[str], gender: str) -> str:
         return "Tespit edilen bulgular ciddi olabilir. En kısa sürede bir dermatoloji uzmanına başvurun."
 
 
+
+    import google.generativeai as genai
+    genai.configure(api_key=GEMINI_API_KEY)
+
+    if not GEMINI_API_KEY:
+        return "Sunucu yapılandırması eksik: GEMINI_API_KEY bulunamadı."
+
+    
     gender_str = normalize_gender(gender)
 
     prompt = (
