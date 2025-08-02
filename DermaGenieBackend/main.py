@@ -3,6 +3,7 @@ from core.database import Base, engine
 from api.v1.auth import router as auth_router
 from api.v1 import analyze_image
 from api.v1 import user
+from models import *
 
 Base.metadata.create_all(bind=engine)
 
