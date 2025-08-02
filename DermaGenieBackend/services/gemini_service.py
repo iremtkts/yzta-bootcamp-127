@@ -16,6 +16,8 @@ def get_skin_care_advice(classes: list[str], gender: str) -> str:
 
 
     import google.generativeai as genai
+    from PIL import Image   
+
     genai.configure(api_key=GEMINI_API_KEY)
 
     if not GEMINI_API_KEY:
