@@ -1,25 +1,19 @@
-# nixpacks.toml  –  lütfen bire bir kopyalayın
+# nixpacks.toml  (yalnızca kritik satırlar)
 [phases.setup]
 nixPkgs = [
-  # pip içerir
-  "python311Full",
-  # ÇALIŞMA-ZAMANI libGL.so.1 kütüphanesi
-  "mesa.drivers"
+  "python311Full",   
+  "mesa.drivers"    
 ]
 
-[packages]            # Son katman debian tabanlıysa yine de ekle
+[packages]         
 apt = [
   "libgl1-mesa-glx",
   "libgl1-mesa-dri",
-  "libglib2.0-0",
   "libsm6",
-  "libxext6"
+  "libxext6",
+  "libglib2.0-0"
 ]
 
 [env]
 NIXPACKS_PYTHON_VERSION = "3.11"
-# loader'ın Nix store'u da taramasını garantile
-LD_LIBRARY_PATH = "/nix/store:${LD_LIBRARY_PATH}"
-
-[start]
-cmd = "uvicorn main:app --host 0.0.0.0 --port $PORT"
+LD_LIBRARY_PATH = "/nix/store:${LD_LIBRARY_PATH}"  
