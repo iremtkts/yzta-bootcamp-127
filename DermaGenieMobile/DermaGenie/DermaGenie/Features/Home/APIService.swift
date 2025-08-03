@@ -14,10 +14,13 @@ final class APIService {
     private init() {}
 
     func analyze(image: UIImage,
-                 completion: @escaping (Result<AnalysisResponse, APIError>) -> Void) {
+                 completion: @escaping (Result<AnalysisResponse, APIError>) -> Void)
+                 -> URLSessionDataTask {
 
         guard let jpeg = image.jpegData(compressionQuality: 0.8) else {
-            completion(.failure(.invalidResponse)); return
+            completion(.failure(.invalidResponse))
+       
+            return URLSessionDataTask()
         }
 
         let url = URL(string: APIConfig.baseURL + APIConfig.Endpoints.analyzeImage)!
@@ -27,22 +30,33 @@ final class APIService {
         request.httpMethod = "POST"
         request.setValue("multipart/form-data; boundary=\(boundary)",
                          forHTTPHeaderField: "Content-Type")
+        if let token = UserDefaults.standard.string(forKey: "access_token") {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
         request.httpBody = makeBody(data: jpeg,
                                     mime: "image/jpeg",
                                     field: "file",
                                     filename: "photo.jpg",
                                     boundary: boundary)
 
-        URLSession.shared.dataTask(with: request) { data, _, err in
-            if let err { completion(.failure(.server(err))); return }
-
+        let task = URLSession.shared.dataTask(with: request) { data, _, err in
+            if let err {
+                completion(.failure(.server(err))); return
+            }
             guard let data,
                   let obj = try? JSONDecoder().decode(AnalysisResponse.self, from: data)
-            else { completion(.failure(.invalidResponse)); return }
-
+            else {
+                completion(.failure(.invalidResponse)); return
+            }
             completion(.success(obj))
-        }.resume()
+        }
+        task.resume()
+        return task                 
     }
+
+
+  
 
     // MARK: – Helpers
     private func makeBody(data: Data,

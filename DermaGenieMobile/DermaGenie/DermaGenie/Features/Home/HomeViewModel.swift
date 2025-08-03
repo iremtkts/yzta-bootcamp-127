@@ -1,20 +1,13 @@
-//
-//  HomeViewModel.swift
-//  DermaGenie
-//
-//  Created by iremt on 3.08.2025.
-//
-
-
 import UIKit
 import Combine
 
+@MainActor
 final class HomeViewModel {
 
-    // Input
+    // MARK: – Input
     @Published var selectedImage: UIImage?
 
-    // Output
+    // MARK: – Output
     @Published private(set) var state: State = .idle
 
     enum State {
@@ -25,26 +18,46 @@ final class HomeViewModel {
     }
 
     private var bag = Set<AnyCancellable>()
+    private var currentTask: URLSessionDataTask?
 
     init() {
-        // View tarafı seçilen resmi yayınlayınca otomatik analiz et
+        
         $selectedImage
             .compactMap { $0 }
-            .sink { [weak self] img in self?.analyze(img) }
+            .sink { [weak self] image in
+                self?.analyze(image)
+            }
             .store(in: &bag)
     }
 
-    func reset() { selectedImage = nil; state = .idle }
+   
+    func reset() {
+        currentTask?.cancel()
+        selectedImage = nil
+        state = .idle
+    }
 
+    // MARK: – Private
     private func analyze(_ image: UIImage) {
         state = .loading
 
-        APIService.shared.analyze(image: image) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let res): self?.state = .result(res)
-                case .failure(let err): self?.state = .error(err.localizedDescription)
+        currentTask = APIService.shared.analyze(image: image) { [weak self] result in
+            guard let self else { return }
+
+            switch result {
+            case .success(let response):
+                self.state = .result(response)
+
+            case .failure(let apiError):
+             
+                let message: String
+                switch apiError {
+                case .invalidURL:         message = "Sunucu adresi geçersiz."
+                case .decodingFailed:     message = "Yanıt çözümlenemedi."
+                case .requestFailed(let m): message = m
+                default:                  message = "Beklenmeyen hata."
                 }
+                self.state = .error(message)
             }
         }
     }

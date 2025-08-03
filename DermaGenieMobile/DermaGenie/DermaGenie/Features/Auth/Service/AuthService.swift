@@ -1,18 +1,5 @@
-//
-//  APIError.swift
-//  DermaGenie
-//
-//  Created by iremt on 3.08.2025.
-//
-
 
 import Foundation
-
-enum APIError: Error {
-    case invalidURL
-    case requestFailed(String)
-    case decodingFailed
-}
 
 class AuthService {
     
@@ -199,7 +186,7 @@ class AuthService {
        
         let body: [String: Any] = [
             "full_name": fullName,
-            "city": "", 
+            "city": "",
             "age": age,
             "gender": gender
         ]

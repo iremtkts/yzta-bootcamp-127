@@ -5,15 +5,19 @@
 //  Created by iremt on 15.07.2025.
 //
 
-
 import UIKit
 
-class HomeView: UIView {
+final class HomeView: UIView {
 
+    // MARK: – Scroll & Stack
+    private let scrollView  = UIScrollView()
+    private let stackView   = UIStackView()
+
+    // MARK: – UI bileşenleri
     let logoImageView: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "icon"))
-        iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFit
+        iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
 
@@ -50,65 +54,82 @@ class HomeView: UIView {
         button.setTitle("ANALİZ ET", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 12
         button.clipsToBounds = true
-        button.backgroundColor = UIColor.systemPurple
+        button.backgroundColor = .systemPurple
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
     let resultLabel: UILabel = {
         let label = UILabel()
         label.text = "SONUÇLAR"
-        label.font = .boldSystemFont(ofSize: 18)
+        label.font = .boldSystemFont(ofSize: 16)
         label.textAlignment = .center
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    // Init
+    // MARK: – Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-        setupViews()
+        configureLayout()
     }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    // MARK: – Layout
+    private func configureLayout() {
 
-    private func setupViews() {
-        addSubview(logoImageView)
-        addSubview(titleLabel)
-        addSubview(subtitleLabel)
-        addSubview(uploadImageView)
-        addSubview(analyzeButton)
-        addSubview(resultLabel)
-
+        // ScrollView ekle
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(scrollView)
         NSLayoutConstraint.activate([
-            logoImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            logoImageView.widthAnchor.constraint(equalToConstant: 50),
-            logoImageView.heightAnchor.constraint(equalToConstant: 50),
-
-            titleLabel.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor),
-            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-
-            subtitleLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 16),
-            subtitleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-
-            uploadImageView.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 24),
-            uploadImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            uploadImageView.widthAnchor.constraint(equalToConstant: 200),
-            uploadImageView.heightAnchor.constraint(equalToConstant: 200),
-
-            analyzeButton.topAnchor.constraint(equalTo: uploadImageView.bottomAnchor, constant: 48),
-            analyzeButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            analyzeButton.widthAnchor.constraint(equalToConstant: 180),
-            analyzeButton.heightAnchor.constraint(equalToConstant: 44),
-
-            resultLabel.topAnchor.constraint(equalTo: analyzeButton.bottomAnchor, constant: 32),
-            resultLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 24
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        scrollView.addSubview(stackView)
+        NSLayoutConstraint.activate([
+         
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16),
+          
+            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32)
+        ])
+
+       
+        let headerStack = UIStackView(arrangedSubviews: [logoImageView, titleLabel])
+        headerStack.axis = .horizontal
+        headerStack.alignment = .center
+        headerStack.spacing = 12
+
+        stackView.addArrangedSubview(headerStack)
+        logoImageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        logoImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+
+        stackView.addArrangedSubview(subtitleLabel)
+
+        stackView.addArrangedSubview(uploadImageView)
+        uploadImageView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        uploadImageView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+
+        stackView.addArrangedSubview(analyzeButton)
+        analyzeButton.widthAnchor.constraint(equalToConstant: 180).isActive = true
+        analyzeButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+
+        stackView.addArrangedSubview(resultLabel)
+      
+        resultLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
     }
 }

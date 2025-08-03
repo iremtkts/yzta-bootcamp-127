@@ -66,9 +66,9 @@ final class HomeViewController: UIViewController {
             contentView.analyzeButton.isEnabled = false
 
         case .result(let res):
-            let percent = Int(res.confidence * 100)
-            contentView.resultLabel.text =
-                "Teşhis: \(res.diagnosis) (\(percent)%)\n💡 \(res.suggestion)"
+            let classes = res.diagnoses.joined(separator: ", ")
+            contentView.resultLabel.text = "Tespit edilenler: \(classes)\n\n\(res.suggestion)"
+
             contentView.analyzeButton.setTitle("TEKRAR DENE", for: .normal)
             contentView.analyzeButton.isEnabled = true
 
@@ -102,7 +102,7 @@ extension HomeViewController: PHPickerViewControllerDelegate {
             guard let self, let image = img as? UIImage else { return }
             DispatchQueue.main.async {
                 self.contentView.uploadImageView.image = image
-                self.vm.selectedImage = image    // tetikleyici
+                self.vm.selectedImage = image
             }
         }
     }
