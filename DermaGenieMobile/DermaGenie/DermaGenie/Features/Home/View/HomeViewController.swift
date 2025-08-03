@@ -1,11 +1,3 @@
-//
-//  HomeViewController.swift
-//  DermaGenie
-//
-//  Created by iremt on 15.07.2025.
-//
-
-
 import UIKit
 import PhotosUI
 import Combine
@@ -13,11 +5,12 @@ import Combine
 final class HomeViewController: UIViewController {
 
     private let contentView = HomeView()
-    private let vm         = HomeViewModel()
-    private var bag        = Set<AnyCancellable>()
+    private let vm = HomeViewModel()
+    private var bag = Set<AnyCancellable>()
 
-    // MARK: – Lifecycle
-    override func loadView() { view = contentView }
+    override func loadView() {
+        view = contentView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,36 +18,36 @@ final class HomeViewController: UIViewController {
         bindViewModel()
     }
 
-    // MARK: – User actions
     private func configureActions() {
-        // Görsele tıkla → picker
         let tap = UITapGestureRecognizer(target: self, action: #selector(selectPhoto))
         contentView.uploadImageView.isUserInteractionEnabled = true
         contentView.uploadImageView.addGestureRecognizer(tap)
 
-        // Buton
         contentView.analyzeButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
 
     @objc private func buttonTapped() {
         switch vm.state {
-        case .idle      : selectPhoto()
-        case .result, .error: vm.reset()
-        case .loading   : break // devre dışı
+        case .idle:
+            selectPhoto()
+        case .result, .error:
+            vm.reset()
+        case .loading:
+            break
         }
     }
 
-    // MARK: – Bindings
     private func bindViewModel() {
         vm.$state
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] state in self?.render(state) }
+            .sink { [weak self] state in
+                self?.render(state)
+            }
             .store(in: &bag)
     }
 
     private func render(_ state: HomeViewModel.State) {
         switch state {
-
         case .idle:
             contentView.resultLabel.text = "SONUÇLAR"
             contentView.uploadImageView.image = UIImage(named: "image")
@@ -66,9 +59,9 @@ final class HomeViewController: UIViewController {
             contentView.analyzeButton.isEnabled = false
 
         case .result(let res):
+            contentView.uploadImageView.image = res.image
             let classes = res.diagnoses.joined(separator: ", ")
             contentView.resultLabel.text = "Tespit edilenler: \(classes)\n\n\(res.suggestion)"
-
             contentView.analyzeButton.setTitle("TEKRAR DENE", for: .normal)
             contentView.analyzeButton.isEnabled = true
 
@@ -79,7 +72,6 @@ final class HomeViewController: UIViewController {
         }
     }
 
-    // MARK: – Photo picker
     @objc private func selectPhoto() {
         var config = PHPickerConfiguration()
         config.selectionLimit = 1
@@ -90,7 +82,6 @@ final class HomeViewController: UIViewController {
     }
 }
 
-// MARK: – PHPicker delegate
 extension HomeViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
