@@ -1,13 +1,20 @@
-
+# nixpacks.toml
+########################################
 [phases.setup]
-
+# pip içeren Python 3.11
 nixPkgs = ["python311Full"]
 
+########################################
+[packages]
+apt = [
+  "libgl1-mesa-dev",   # libGL.so.1 + header’lar
+  "libglib2.0-0"       # libgthread-2.0.so.0
+]
 
-
+########################################
 [env]
 NIXPACKS_PYTHON_VERSION = "3.11"
 
-
+########################################
 [start]
 cmd = "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8080}"
