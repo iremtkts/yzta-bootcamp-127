@@ -1,18 +1,8 @@
-[phases.setup]
-nixPkgs = ["python311Full"]
-
 [packages]
 apt = ["libgl1-mesa-glx", "libglib2.0-0"]
 
-[phases.install]
-cmds = [
-
-  "pip install --upgrade pip",
- 
-  "pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu torch==2.2.2",
-
-  "pip install --no-cache-dir -r requirements.txt --no-deps"
-]
+[env]
+NIXPACKS_PYTHON_VERSION = "3.11"
 
 [start]
 cmd = "uvicorn main:app --host 0.0.0.0 --port $PORT"
