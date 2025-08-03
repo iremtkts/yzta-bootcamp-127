@@ -166,6 +166,7 @@ Scrum süreci WhatsApp ve Trello üzerinden yürütülmüştür.
 
 
 <br>
+
 ### 🎯 Mobil Arayüz Tasarımı & YOLOv8 Model Eğitimi
 Uygulamanın kullanıcı arayüzünü MVVM mimarisi ve feature-based klasörleme yapısıyla kodlamak, Roboflow’dan elde edilen HAM10000 ve akne-kuruluk gibi sorunları içeren iki veri setinin YOLOv8 ile model eğitimi gerçekleştirmek.
 
@@ -251,5 +252,124 @@ Trello bağlantısı: [Trello Sprint 2 Board](https://trello.com/invite/b/68728a
 | 🛠️ Geliştirilecekler | HAM10000 eğitimi Colab'da uzun sürdü, daha hafif veri seti kullanılmalı. |
 | 💡 Öğrenilenler      | Roboflow üzerindeki farklı veri setleri dikkatlice yeniden adlandırılarak birleştirilmeli, yoksa model eğitimi bozulabiliyor. |
 | 🔄 Takım Değişimi    | Scrum Master rolünü İrem Tektaş devraldı.                             |
+
+</details>
+
+<details>
+<summary><strong> <span style="font-size:32px">🧾 Sprint 3 Notları</span></strong></summary>
+
+### 🎯 Backend Entegrasyonu, Model Canlıya Alma & iOS Entegrasyonu
+Bu sprintte amaç; FastAPI tabanlı backend geliştirmesini PostgreSQL veritabanıyla tamamlamak, YOLOv8 ile iki farklı modeli eğitmek ve bu modelleri Railway üzerinden canlıya almak, ardından iOS uygulaması ekranlarına API entegrasyonlarını yapmak oldu.
+
+---
+
+### 📊 Tahmini Sprint Puanı: **47 Story Point**  
+### ✅ Tamamlanan Puan: **47 Story Point**
+
+---
+
+### 📐 Puanlama Mantığı:
+- **3 SP** → Basit API geliştirme / küçük UI entegrasyonu  
+- **5 SP** → Tek ekran API entegrasyonu veya DB yapılandırması  
+- **8 SP** → Model eğitimi, canlıya alma veya backend ile mobil tam entegrasyon  
+- **13 SP** → Birden fazla adımı kapsayan karmaşık teknik görevler (model + API + deploy)
+
+---
+
+### 📝 Product Backlog Görevleri ve Puanlar
+
+| Görev                                                      | Puan | Durum         |
+|------------------------------------------------------------|------|---------------|
+| FastAPI backend geliştirme ve PostgreSQL geçişi           | 8    | ✅ Tamamlandı |
+| PostgreSQL bağlantı ve tablo yapısının oluşturulması       | 5    | ✅ Tamamlandı |
+| YOLOv8 ile iki farklı modelin eğitilmesi                   | 13   | ✅ Tamamlandı |
+| Modellerin Railway üzerinden canlıya alınması              | 8    | ✅ Tamamlandı |
+| iOS tarafında API entegrasyonlarının yapılması             | 8    | ✅ Tamamlandı |
+| Analiz sonucu ekran tasarımı ve veri bağlama               | 5    | ✅ Tamamlandı |
+
+
+**Not:** Sprint kapsamındaki tüm görevler **İrem Tektaş** tarafından tamamlanmıştır.
+---
+
+### 📅 Daily Scrum
+📌 Scrum süreci WhatsApp ve Trello üzerinden yürütüldü.
+
+---
+
+### 📸 Whatsapp Görüntüleri
+<p align="center">
+  <img src="screenshots/wp-5.PNG" width="250"/>
+  <img src="screenshots/wp-7.jpeg" width="250"/>
+</p>
+
+---
+
+### 📌 Sprint Board Updates
+Trello bağlantısı: [Trello Sprint 3 Board](https://trello.com/invite/b/68728a90daf440f29514683e/ATTI1891fce45a84d7a7dff4990f6a8473d10BD13A86/yzta-grup-127)
+
+#### 📷 Trello Görseli
+<p align="center">
+  <img src="screenshots/trello-2.png" width="650"/>
+</p>
+
+---
+
+### 📸 Ürün Screenshot
+
+#### 📱 iOS – Analiz & Sonuç Ekranları
+<p align="center">
+  <img src="screenshots/app.png" width="250"/>
+  <img src="screenshots/app-2.png" width="250"/>
+  <img src="screenshots/app-3.png" width="250"/>
+</p>
+
+#### 📷 Backend & Model Canlıya Alma
+<p align="center">
+  <img src="screenshots/endpoint.png" width="250"/>
+</p>
+
+#### 📷 Model Grafikleri
+<p align="center">
+  <img src="screenshots/egitim-sonucu.png" width="500"/>
+  <img src="screenshots/egitim-sonucu2.png" width="500"/>
+</p>
+---
+
+### 🎤 Sprint Review
+- **Tamamlananlar:**
+  - FastAPI backend PostgreSQL ile entegre edildi.
+  - YOLOv8 ile iki farklı model eğitildi.
+  - Modeller Railway üzerinden canlıya alındı.
+  - iOS tarafında API çağrıları yapılarak analiz sonucu ekranına veri bağlandı.
+
+- **Teknik Not – Neden iki model eğitildi?**
+  DermaGenie’de iki farklı YOLOv8 modeli eğitilmesinin sebebi:
+  1. **Genel Cilt Sorunları Modeli**  
+     Akne, cilt kuruluğu, gözenek büyümesi gibi estetik problemlerin tespiti için optimize edildi.  
+  2. **Dermatolojik Risk Modeli**  
+     Melanom gibi potansiyel tehlikeli durumların tespiti için ayrı optimize edildi.  
+     Bu sayede kritik vakalarda yanlış pozitif oranı azaltıldı.
+
+  Bu ayrım sayesinde:
+  - Modeller kendi görevlerine odaklandı.
+  - Riskli durumlar için **daha güvenilir sonuçlar** elde edildi.
+
+- **Demo:**
+  - Kullanıcı fotoğraf çekiyor veya galeriden seçiyor.
+  - Görüntü API’ye gönderiliyor → Model analiz yapıyor.
+  - Tahmin sonucu iOS ekranında görselle birlikte görüntüleniyor.
+
+- **Uygulama Linkleri:**
+  - 📱 [TestFlight – DermaGenie](https://testflight.apple.com/join/pRPEqGBT)  
+  - 🌐 [Backend API – Railway](https://yzta-bootcamp-127-production-4638.up.railway.app/docs)
+
+---
+
+### 🔁 Sprint Retrospektif
+
+| Kategori            | Notlar                                                                 |
+|---------------------|------------------------------------------------------------------------|
+| ✅ İyi Gidenler      | Backend ve mobil entegrasyon sorunsuz tamamlandı, modeller hızlı şekilde canlıya alındı. |
+| 🛠️ Geliştirilecekler | Model sonuçları için confidence threshold ayarı optimize edilmeli.     |
 
 </details>
