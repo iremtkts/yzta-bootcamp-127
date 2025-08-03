@@ -14,11 +14,10 @@ apt = [
 
 [phases.install]
 cmds = [
- 
-  "python -m pip install --upgrade pip",
-  
-  "python -m pip install --no-cache-dir --no-deps -r requirements.txt"
+  "python3 -m pip install --upgrade pip",
+  "python3 -m pip install --no-cache-dir --no-deps -r requirements.txt"
 ]
+
 
 
 NIXPACKS_PYTHON_VERSION = "3.11"
