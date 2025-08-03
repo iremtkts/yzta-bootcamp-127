@@ -1,4 +1,5 @@
 import UIKit
+import SDWebImage
 
 class AnalysisDetailView: UIView {
 
@@ -125,17 +126,54 @@ class AnalysisDetailView: UIView {
         stackView.addArrangedSubview(suggestionBox)
     }
 
+    
+
+
     func configure(with model: HistoryItem) {
-        if let image = UIImage(named: model.imageName) {
-            imageView.image = image
-        } else {
-            imageView.image = UIImage(named: "no-image")
+      
+        calendarLabel.text  = "📅 \(formatDate(model.date))"
+        diagnosisLabel.text = model.diagnosis
+        suggestionLabel.text = model.suggestion
+
+        
+        let placeholder = UIImage(named: "no-image")
+        guard let annotatedURL = URL(string: model.annotatedURL),
+              let originalURL  = URL(string: model.originalURL) else {
+            imageView.image = placeholder
+            return
         }
 
-        calendarLabel.text = "📅 \(model.date)"
-        diagnosisLabel.text = "\(model.diagnosis)"
-        confidenceLabel.text = "📊 Güven Skoru: \(model.confidence)"
-        suggestionLabel.text = model.suggestion
+      
+        imageView.sd_setImage(
+            with: annotatedURL,
+            placeholderImage: placeholder,
+            options: [.continueInBackground, .highPriority]
+        ) { [weak self] _, error, _, _ in
+            guard error != nil else { return }   
+            self?.imageView.sd_setImage(
+                with: originalURL,
+                placeholderImage: placeholder,
+                options: [.continueInBackground, .highPriority]
+            )
+        }
     }
+
+
+    private func formatDate(_ isoDate: String) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+        
+        if let date = formatter.date(from: isoDate) {
+            let displayFormatter = DateFormatter()
+            displayFormatter.locale = Locale(identifier: "tr_TR")
+            displayFormatter.dateFormat = "dd/MM/yyyy"
+            return displayFormatter.string(from: date)
+        }
+        return isoDate
+    }
+
+
 
 }

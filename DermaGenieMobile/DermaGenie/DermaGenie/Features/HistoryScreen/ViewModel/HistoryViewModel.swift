@@ -6,20 +6,46 @@
 //
 
 
-class HistoryViewModel {
+import Foundation
 
-    var items: [HistoryItem] = [
-        HistoryItem(imageName: "no-image", date: "07/2025", diagnosis: "ACNE", confidence: "%90", suggestion: "Cildinizi sabah-akşam temizleyin ve su tüketimini artırın."),
-        HistoryItem(imageName: "no-image", date: "07/2025", diagnosis: "Cilt Kuruluğu", confidence: "%85", suggestion: "Günde iki kez nemlendirici uygulayın ve bol su için."),
-        HistoryItem(imageName: "no-image", date: "07/2025", diagnosis: "ACNE", confidence: "%92", suggestion: "Yağsız ürünler kullanın ve yüzünüzü günde iki kez yıkayın.")
-    ]
+final class HistoryViewModel {
+    private var items: [HistoryItem] = []
+    private let service = HistoryService()
 
-    func numberOfItems() -> Int {
-        return items.count
+    var onUpdate: (() -> Void)?
+    var onError: ((String) -> Void)?
+
+    func fetchHistory() {
+        service.fetchHistory { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let list):
+                    self?.items = list
+                    self?.onUpdate?()
+                case .failure(let error):
+                    self?.onError?("\(error)")
+                }
+            }
+        }
+    }
+    
+    func deleteItem(at index: Int, completion: @escaping (Bool) -> Void) {
+        let id = items[index].analysisId
+        service.deleteAnalysis(id: id) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self?.items.remove(at: index)
+                    self?.onUpdate?()
+                    completion(true)
+                case .failure(let error):
+                    self?.onError?("\(error)")
+                    completion(false)
+                }
+            }
+        }
     }
 
-    func item(at index: Int) -> HistoryItem {
-        return items[index]
-    }
+    func numberOfItems() -> Int { items.count }
+    func item(at index: Int) -> HistoryItem { items[index] }
 }
-

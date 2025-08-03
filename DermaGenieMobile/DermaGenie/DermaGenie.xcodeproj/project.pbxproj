@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		0DD35D3A2E3FA56400FD0512 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0DD35D392E3FA56400FD0512 /* SDWebImage */; };
+		0DD35D3C2E3FA56400FD0512 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0DD35D3B2E3FA56400FD0512 /* SDWebImageMapKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		0DEDFC1D2E2437D30078DD4B /* DermaGenie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DermaGenie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DD35D3C2E3FA56400FD0512 /* SDWebImageMapKit in Frameworks */,
+				0DD35D3A2E3FA56400FD0512 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = DermaGenie;
 			packageProductDependencies = (
+				0DD35D392E3FA56400FD0512 /* SDWebImage */,
+				0DD35D3B2E3FA56400FD0512 /* SDWebImageMapKit */,
 			);
 			productName = DermaGenie;
 			productReference = 0DEDFC1D2E2437D30078DD4B /* DermaGenie.app */;
@@ -107,6 +116,9 @@
 			);
 			mainGroup = 0DEDFC142E2437D30078DD4B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				0DD35D382E3FA56400FD0512 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0DEDFC1E2E2437D30078DD4B /* Products */;
 			projectDirPath = "";
@@ -335,6 +347,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0DD35D382E3FA56400FD0512 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.21.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0DD35D392E3FA56400FD0512 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DD35D382E3FA56400FD0512 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		0DD35D3B2E3FA56400FD0512 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DD35D382E3FA56400FD0512 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0DEDFC152E2437D30078DD4B /* Project object */;
 }

@@ -135,13 +135,25 @@ class SignUpViewController: UIViewController {
                 self?.showAlert(message)
             }
         }
-
+        
         viewModel.onSignUpSuccess = { [weak self] in
             DispatchQueue.main.async {
-                self?.showAlert("Kayıt başarılı! (Simülasyon)")
+           
+                self?.contentView.nameField.text = ""
+                self?.contentView.emailField.text = ""
+                self?.contentView.passwordField.text = ""
+                self?.contentView.confirmPasswordField.text = ""
+                self?.contentView.ageField.text = ""
+                self?.contentView.genderField.text = ""
+                self?.contentView.isChecked = false
+                
+              
+                let loginVC = LoginViewController()
+                self?.navigationController?.setViewControllers([loginVC], animated: true)
             }
         }
     }
+
 
     private func showAlert(_ message: String) {
         let alert = UIAlertController(title: "Uyarı", message: message, preferredStyle: .alert)
