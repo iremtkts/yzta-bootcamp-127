@@ -1,5 +1,17 @@
+# nixpacks.toml
+[phases.setup]
+
+nixPkgs = ["python311Full", "mesa.dev"]
+
 [packages]
-apt = ["libgl1-mesa-glx", "libglib2.0-0"]
+
+apt = [
+  "libgl1-mesa-glx",
+  "libgl1-mesa-dri",
+  "libglib2.0-0",
+  "libsm6",
+  "libxext6"
+]
 
 [env]
 NIXPACKS_PYTHON_VERSION = "3.11"
