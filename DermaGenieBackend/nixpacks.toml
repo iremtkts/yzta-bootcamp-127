@@ -1,11 +1,12 @@
 [phases.setup]
-nixPkgs = ["python312"]
-
+nixPkgs = ["python312Full"]          # pip içerir
 [packages]
 apt = ["libgl1-mesa-glx", "libglib2.0-0"]
 
 [phases.install]
-cmds = ["pip install --no-cache-dir -r requirements.txt"]
+cmds = [
+  "python -m pip install --no-cache-dir -r requirements.txt"
+]
 
 [start]
-cmd = "uvicorn main:app --host 0.0.0.0 --port 8080"
+cmd = "uvicorn main:app --host 0.0.0.0 --port $PORT"
