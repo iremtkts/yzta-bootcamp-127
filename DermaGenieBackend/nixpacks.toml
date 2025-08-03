@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["python311Full"]    
+nixPkgs = ["python311Full"]
 
 [packages]
 apt = ["libgl1-mesa-glx", "libglib2.0-0"]
@@ -7,9 +7,11 @@ apt = ["libgl1-mesa-glx", "libglib2.0-0"]
 [phases.install]
 cmds = [
 
-  "python -m ensurepip --upgrade",
-  "python -m pip install --upgrade pip",
-  "python -m pip install --no-cache-dir -r requirements.txt"
+  "pip install --upgrade pip",
+ 
+  "pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu torch==2.2.2",
+
+  "pip install --no-cache-dir -r requirements.txt --no-deps"
 ]
 
 [start]
