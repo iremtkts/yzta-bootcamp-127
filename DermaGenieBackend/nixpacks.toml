@@ -1,8 +1,7 @@
-# nixpacks.toml
 
 [phases.setup]
-nixPkgs = ["python311Full", "mesa.dev"]
 
+nixPkgs = ["python311Full", "mesa"]
 
 [packages]
 apt = [
@@ -13,11 +12,8 @@ apt = [
   "libxext6"
 ]
 
-
-
 [env]
 NIXPACKS_PYTHON_VERSION = "3.11"
-
 
 [start]
 cmd = "uvicorn main:app --host 0.0.0.0 --port $PORT"
