@@ -1,19 +1,26 @@
-# nixpacks.toml
-[phases.setup]
 
+[phases.setup]
+    
 nixPkgs = ["python311Full", "mesa.dev"]
 
 [packages]
-
 apt = [
-  "libgl1-mesa-glx",
-  "libgl1-mesa-dri",
-  "libglib2.0-0",
-  "libsm6",
-  "libxext6"
+  "libgl1-mesa-glx",   # libGL.so.1 sağlayıcı
+  "libgl1-mesa-dri",   # bazı sistemlerde ek sürücüler gerekir
+  "libglib2.0-0",      # OpenCV’nin GLib bağımlılığı
+  "libsm6",            # X / OpenGL yardımcı kütüphanesi
+  "libxext6"           # X / OpenGL yardımcı kütüphanesi
 ]
 
-[env]
+[phases.install]
+cmds = [
+ 
+  "python -m pip install --upgrade pip",
+  
+  "python -m pip install --no-cache-dir --no-deps -r requirements.txt"
+]
+
+
 NIXPACKS_PYTHON_VERSION = "3.11"
 
 [start]

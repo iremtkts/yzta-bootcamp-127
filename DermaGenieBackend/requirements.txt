@@ -1,3 +1,4 @@
+# requirements.txt
 fastapi
 uvicorn
 sqlalchemy
@@ -13,8 +14,7 @@ alembic
 google-generativeai>=0.7.2
 psycopg2-binary==2.9.9
 numpy==1.26.4
-opencv-python-headless==4.9.0.80       
-torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
-ultralytics==8.3.170 --no-deps         
-
+opencv-python-headless==4.9.0.80
+torch==2.7.1    
+ultralytics==8.3.170
 Pillow==10.3.0
