@@ -1,10 +1,14 @@
 [phases.setup]
-nixPkgs = ["python312Full"]          # pip içerir
+nixPkgs = ["python311Full"]    
+
 [packages]
 apt = ["libgl1-mesa-glx", "libglib2.0-0"]
 
 [phases.install]
 cmds = [
+
+  "python -m ensurepip --upgrade",
+  "python -m pip install --upgrade pip",
   "python -m pip install --no-cache-dir -r requirements.txt"
 ]
 
