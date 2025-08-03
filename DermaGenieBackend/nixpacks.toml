@@ -1,19 +1,13 @@
-# nixpacks.toml  (yalnızca kritik satırlar)
-[phases.setup]
-nixPkgs = [
-  "python311Full",   
-  "mesa.drivers"    
-]
 
-[packages]         
-apt = [
-  "libgl1-mesa-glx",
-  "libgl1-mesa-dri",
-  "libsm6",
-  "libxext6",
-  "libglib2.0-0"
-]
+[phases.setup]
+
+nixPkgs = ["python311Full"]
+
+
 
 [env]
 NIXPACKS_PYTHON_VERSION = "3.11"
-LD_LIBRARY_PATH = "/nix/store:${LD_LIBRARY_PATH}"  
+
+
+[start]
+cmd = "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8080}"
