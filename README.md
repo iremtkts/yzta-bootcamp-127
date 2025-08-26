@@ -1,129 +1,100 @@
-## Takım Adı: 127
+# 🧴 DermaGenie
 
-## 👥 Görev Dağılımı ve Ekip Rolleri
-
-| Rol             | İsim                   |
-|-----------------|------------------------|
-| Product Owner   | Berkay Tekce           |
-| Scrum Master    | İrem Tektaş            |
-| Developer       | Abdurrazzak Saymaz     |
+🌐 Available in: [English](./README.md) | [Türkçe](./README-tr.md)
+📺 [Watch the Demo Video](https://www.youtube.com/watch?v=wmuw327AaXU)
 
 ---
 
-## 🧴 Uygulama Tanıtımı: DermaGenie
+## 🎯 Product Description
+**DermaGenie** is a mobile health application designed for anyone who wants to raise awareness of dermatological conditions.  
+The app analyzes facial images captured through a mobile device’s camera and uses a YOLOv8-based AI model to detect conditions such as acne, skin dryness, or melanoma risk.
 
-### 🎯 Ürün Açıklaması:
-**DermaGenie**, dermatolojik farkındalık oluşturmak isteyen herkes için tasarlanmış bir mobil sağlık uygulamasıdır.  
-Uygulama, mobil cihaz kamerası üzerinden alınan yüz görüntülerini analiz ederek akne, cilt kuruluğu, melanom riski gibi durumları YOLOv8 tabanlı yapay zeka modeliyle tespit eder.
+**After detection:**
+- For aesthetic issues (e.g., acne, dryness), users receive GenAI-powered personalized skincare recommendations.  
+- For serious dermatological findings (e.g., melanoma suspicion), the app directs the user to a specialist.  
 
-**Tespit sonrası:**
-- Estetik sorunlarda (akne, kuruluk) kullanıcılara GenAI destekli kişisel bakım önerileri sunulur.
-- Ciddi dermatolojik bulgularda (melanom şüphesi) kullanıcı doğrudan uzman hekime yönlendirilir.
-DermaGenie, yapay zekâyı sadece analiz aracı olarak değil, aynı zamanda kullanıcıya güven veren, rehberlik eden bir dijital cilt danışmanı olarak konumlandırır.
-
+DermaGenie positions AI not only as an analysis tool but also as a **trusted digital skin advisor** that guides and supports the user.
 
 ---
 
-## 📱 Temel Özellikler
-
-- **Gerçek zamanlı cilt analizi**: Kamera ile alınan görüntüler AI modeliyle analiz edilir.  
-- **Akne Tespiti**: Hafif veya yoğun akne varsa, cilt bakım önerileri ve ürün tavsiyeleri sunulur.  
-- **Melanom Tespiti**: Şüpheli leke tespit edilirse, kullanıcı doğrudan dermatoloji uzmanına yönlendirilir.  
-- **GenAI Asistan**: Kişisel cilt tipi ve sorunlarına göre yapay zekâ tavsiyesi üretir (temizleyici, dermatolog takvimi, nemlendirici, vb.)
-
----
-
-## 🎯 DermaGenie Hedef Kitlesi
-
-1. **Genç Bireyler**  
-   - Neden? Bu yaş grubunda özellikle akne, sivilce, cilt yağlanması gibi problemler çok yaygın.  
-   - Beklenti: Hızlı, kolay erişilebilir bilgi sunan bir dijital dermatolojik değerlendirme aracı.
-
-2. **Yoğun Çalışan Bireyler**  
-   - Neden? Dermatoloğa zaman ayıramayan, ancak cilt sağlığını önemseyen kişiler.  
-   - Beklenti: Hızlı analiz, medikal tavsiyeler, potansiyel risk uyarıları.
-
-3. **Sağlık Hizmetine Erişimi Kısıtlı Olanlar**  
-   - Neden? Dermatolog erişimi kısıtlı olabilir.  
-   - Beklenti: Ön değerlendirme aracı olarak kullanabilecekleri bir yapay zeka çözümü.
-
-4. **Kronik Cilt Problemi Olan Bireyler**  
-   - Neden? Egzama, sedef, kuruluk gibi rahatsızlıkları sürekli takip etmek isteyen bireyler.  
-   - Beklenti: Takip imkanı sunan geçmiş analiz görüntüleme ve öneri sistemi.
-
-5. **Estetik ve Güzellik Konusuna İlgi Duymakta Olan Kullanıcılar**  
-   - Neden? Cilt sağlığını korumak, güzellik rutinlerine destek almak isterler.  
-   - Beklenti: Cilt bakım önerileri, erken uyarı sistemi, estetik uyum.
-
-6. **Sağlık Bilinci Yüksek Bireyler**  
-   - Neden? Potansiyel cilt kanseri belirtilerini erken fark etmek isteyen kullanıcılar.  
-   - Beklenti: Güvenilirlik, açıklayıcı tanılar, doktor önerisine yönlendirme.
-
-
-
-
-### Persona: [📄 Personalar](./personalar/personalar.pdf)
-
+## 📱 Key Features
+- **Real-time skin analysis**: Captures images with the camera and processes them through an AI model.  
+- **Acne Detection**: Provides skincare recommendations and product suggestions when mild or severe acne is detected.  
+- **Melanoma Detection**: Flags suspicious spots and guides the user to dermatologists.  
+- **GenAI Assistant**: Offers tailored recommendations based on skin type and conditions (cleansers, moisturizers, dermatologist scheduling, etc.).
 
 ---
 
-## 🧰 Kullanılacak Teknolojiler
+## 🎯 Target Audience
+1. **Young Individuals**  
+   - Why? Acne, pimples, and oily skin are common issues in this age group.  
+   - Expectation: A fast and accessible digital dermatological assessment tool.  
 
-### 📷 Görüntü Analizi
+2. **Busy Professionals**  
+   - Why? They may not have time to visit a dermatologist but still care about skin health.  
+   - Expectation: Quick analysis, medical advice, potential risk alerts.  
+
+3. **Individuals with Limited Access to Healthcare**  
+   - Why? Access to dermatologists may be restricted in certain regions.  
+   - Expectation: Use as a preliminary AI-powered assessment tool.  
+
+4. **Individuals with Chronic Skin Conditions**  
+   - Why? Those suffering from eczema, psoriasis, or dryness may want ongoing monitoring.  
+   - Expectation: Tracking through history and recommendations system.  
+
+5. **Beauty & Aesthetics Enthusiasts**  
+   - Why? They aim to maintain skin health and optimize beauty routines.  
+   - Expectation: Skincare tips, early warnings, aesthetic alignment.  
+
+6. **Health-Conscious Individuals**  
+   - Why? They want to detect early signs of potential skin cancer.  
+   - Expectation: Reliability, transparent diagnoses, referral to medical professionals.  
+
+### Persona: [📄 Personas](./personalar/persona-eng.pdf)
+
+---
+
+## 🧰 Technologies
+
+### 📷 Image Analysis
 - YOLOv8
 
 ### ⚙️ Backend
-- FastAPI (görsel işleme, öneri servisi)  
-- Railway (geliştirme/deploy ortamı)  
-- Gemini API (öneri üretme)
+- FastAPI (image processing, recommendation service)  
+- Railway (deployment environment)  
+- Gemini API (recommendation generation)
 
-### 📱 iOS Uygulaması
+### 📱 iOS App
 - Swift + UIKit  
-- URLSession ile API iletişimi  
-- Kamera kullanımı ve görüntü gönderme  
-- Kullanıcı arayüzü: akne tespit ekranı, GenAI öneri ekranı
+- API communication via URLSession  
+- Camera usage and image upload  
+- User interface: acne detection screen, GenAI recommendation screen  
 
 ---
 
-<details>
-<summary><strong> <span style="font-size:32px">🧾 Sprint 1 Notları</span></strong></summary>
+## 🧾 Sprint 1 Notes
 
-### 🎯 Veri Keşfi ve Hazırlık:
-Akne, kuruluk, kızarıklık, melanoma gibi durumları analiz etmek için uygun veri setlerini araştırmak ve ön işleme hazırlığını tamamlamak.
+### 🎯 Data Exploration & Preparation
+Research suitable datasets for conditions like acne, dryness, redness, and melanoma, and complete preprocessing.  
 
-### 📊 Tahmini Sprint Puanı: **21 Story Point**
+**Estimated Story Points: 21**
 
-| Görev                                              | Puan |
-|----------------------------------------------------|------|
-| Açık veri setlerini araştır ve indir               | 5    |
-| Her veri setinin lisans ve etik kullanımını incele | 3    |
-| Sınıf haritası ve etiket normalizasyon şeması oluştur | 3 |
-| Görüntüleri aynı boyut, renk formatına getir       | 5    |
-| Tek bir `labels.csv` ile etiket sistemini birleştir | 5    |
+| Task                                                | Points |
+|-----------------------------------------------------|--------|
+| Research and download open datasets                 | 5      |
+| Review dataset licenses and ethical use             | 3      |
+| Create class mapping and label normalization schema | 3      |
+| Standardize image size and color format             | 5      |
+| Merge labels with a single `labels.csv` file        | 5      |
 
 ---
 
-### 📅 Daily Scrum
-Scrum süreci WhatsApp ve Trello üzerinden yürütülmüştür.
-
-## 📸 Görseller
-<p align="center">
-  <img src="screenshots/wp-1.jpg" width="250"/>
-  <img src="screenshots/wp-2.jpeg" width="250"/>
-</p>
-
-### 📱 Mobil Uygulama Tasarım Örneği
-<p align="center">
-  <img src="screenshots/1.png" width="250"/>
-  <img src="screenshots/2.png" width="250"/>
-</p>
-
-### 📓 Notebook Görseli
+### 📓 Notebook Preview
 <p align="center">
   <img src="screenshots/notebook.jpg" width="500"/>
 </p>
 
-### 🖼️ Veri Seti Örnekleri
+### 🖼️ Dataset Samples
 <p align="center">
   <img src="screenshots/veri-seti.jpg" width="300"/>
   <img src="screenshots/veri-seti2.jpg" width="300"/>
@@ -132,103 +103,82 @@ Scrum süreci WhatsApp ve Trello üzerinden yürütülmüştür.
 ---
 
 ### 📌 Sprint Board Updates
-
-| Görev                         | Durum         |
-|-------------------------------|---------------|
-| Veri seti araştırması         | ✅ Tamamlandı |
-| Veri lisans incelemesi        | ✅ Tamamlandı |
-| Görsel boyut eşitleme         | ⏳ Devam ediyor |
-| Etiket normalizasyonu         | ⏳ Başladı     |
-| `labels.csv` oluşturma        | ⏳ Planlandı   |
-| Örnek analiz ekran görüntüsü  | ⏳ Planlandı   |
+| Task                        | Status         |
+|-----------------------------|----------------|
+| Dataset research            | ✅ Completed   |
+| License review              | ✅ Completed   |
+| Image size normalization    | ⏳ In Progress |
+| Label normalization         | ⏳ Started     |
+| `labels.csv` creation       | ⏳ Planned     |
+| Sample analysis screenshots | ⏳ Planned     |
 
 ---
 
-### 🎤 Sprint Review (Demo & Geri Bildirim)
-- **Sunulan:** Etiketlenmiş 2 veri setinden oluşan eğitim datası.  
-- **Demo:** Veri yapısı ve örnek analiz görselleri gösterildi.  
-- **Geri Bildirim:** Etiket isimleri kullanıcı odaklı değil. Örneğin, `nv` yerine `benign mole` gibi daha anlaşılır terimler tercih edilmeli.
+### 🎤 Sprint Review
+- **Delivered:** Training data from 2 labeled datasets.  
+- **Demo:** Data structure and sample analysis visuals.  
 
 ---
 
 ### 🔁 Sprint Retrospective
-
-| Kategori               | Notlar                                                                 |
-|------------------------|------------------------------------------------------------------------|
-| ✅ İyi Gidenler         | Veri seti analizi hızlı yapıldı, kaynaklar etkili toplandı.             |
-| 🛠️ Geliştirilecekler    | Dosya adlandırmalarında karışıklık oluştu. Daha net sistem belirlenmeli. |
-| 💡 Öğrenilenler         | Veri lisansı kontrolü zaman kazandırıyor. Önceden mutlaka yapılmalı.   |
-
-</details>
-
-<details>
-<summary><strong> <span style="font-size:32px">🧾 Sprint 2 Notları</span></strong></summary>
-
-
-<br>
-
-### 🎯 Mobil Arayüz Tasarımı & YOLOv8 Model Eğitimi
-Uygulamanın kullanıcı arayüzünü MVVM mimarisi ve feature-based klasörleme yapısıyla kodlamak, Roboflow’dan elde edilen HAM10000 ve akne-kuruluk gibi sorunları içeren iki veri setinin YOLOv8 ile model eğitimi gerçekleştirmek.
+| Category        | Notes                                                     |
+|-----------------|-----------------------------------------------------------|
+| ✅ What went well | Dataset analysis was quick, and resources were collected effectively. |
 
 ---
 
-### 📊 Tahmin Edilen Puan: **26**  
-### ✅ Tamamlanan Puan: **18**
+## 🧾 Sprint 2 Notes
+
+### 🎯 Mobile UI Design & YOLOv8 Model Training
+Implement the user interface using MVVM architecture and feature-based foldering. Train YOLOv8 models on two datasets obtained from Roboflow (HAM10000 + acne/dryness).  
+
+**Estimated Points: 26**  
+**Completed Points: 18**
 
 ---
 
-### 📐 Puanlama Mantığı:
-Görevlerin puanları, işin karmaşıklığı, tahmini süresi ve teknik belirsizlik miktarına göre belirlenmiştir:  
-- 3 SP → basit arayüz veya veri işleme adımı  
-- 5 SP → orta düzeyde kodlama veya eğitim görevleri  
-- 8 SP → çok adımlı veya yüksek belirsizlik içeren teknik görevler
+### 📐 Story Point Logic
+- **3 SP** → Simple UI or preprocessing  
+- **5 SP** → Medium coding or training tasks  
+- **8 SP** → Multi-step or highly uncertain tasks  
 
 ---
 
-### 📝 Product Backlog Görevleri ve Puanlar
+### 📝 Product Backlog
 
-| Görev                                                      | Puan | Durum         |
-|------------------------------------------------------------|------|---------------|
-| MVVM + feature-based proje yapısını oluşturma             | 5    | ✅ Tamamlandı |
-| Login, SignUp, Kamera, Analiz, AI ekranlarının kodlanması | 5    | ✅ Tamamlandı |
-| GenAI öneri ekranı için yükleme animasyonu ve sonuç alanı | 3    | ✅ Tamamlandı |
-| Roboflow’daki iki veri setinin YOLOv8 formatına getirme    | 5    | ✅ Tamamlandı |
-| YOLOv8 modelini eğitme (acne, dryness, melanoma, vb.)     | 5    | ⏳ Planlandı  |
-| Model çıktılarının mobil uygulama arayüzüne entegrasyonu  | 3    | ⏳ Planlandı  |
+| Task                                                    | Points | Status       |
+|---------------------------------------------------------|--------|--------------|
+| Create MVVM + feature-based project structure           | 5      | ✅ Completed |
+| Implement Login, SignUp, Camera, Analysis, AI screens   | 5      | ✅ Completed |
+| Loading animation & results for GenAI screen            | 3      | ✅ Completed |
+| Convert Roboflow datasets into YOLOv8 format            | 5      | ✅ Completed |
+| Train YOLOv8 model (acne, dryness, melanoma, etc.)      | 5      | ⏳ Planned   |
+| Integrate model outputs into iOS UI                     | 3      | ⏳ Planned   |
 
 ---
 
 ### 📅 Daily Scrum
-📸 Scrum süreci WhatsApp ve Trello üzerinden yürütülmüştür.
-
-### 📸 Whatsapp Görüntüleri
-<p align="center">
-  <img src="screenshots/wp-3.jpg" width="250"/>
-  <img src="screenshots/wp-4.jpg" width="250"/>
-</p>
-
+Conducted via WhatsApp & Trello.  
 
 ---
 
 ### 📌 Sprint Board Updates
-Trello bağlantısı: [Trello Sprint 2 Board](https://trello.com/invite/b/68728a90daf440f29514683e/ATTI1891fce45a84d7a7dff4990f6a8473d10BD13A86/yzta-grup-127)
+Trello: [Sprint 2 Board](https://trello.com/invite/b/68728a90daf440f29514683e/ATTI1891fce45a84d7a7dff4990f6a8473d10BD13A86/yzta-grup-127)
 
-#### 📷 Trello Görseli
 <p align="center">
   <img src="screenshots/trello.png" width="650"/>
 </p>
 
 ---
 
-### 📸 Ürün Screenshot
-
-#### 📱 Arayüz – Giriş & Anasayfa
+### 📸 Screenshots
+**UI – Login & Home**  
 <p align="center">
   <img src="screenshots/login.png" width="250"/>
   <img src="screenshots/results.png" width="250"/>
 </p>
 
-#### 📷 Kamera & AI Öneri
+**Camera & AI Suggestions**  
 <p align="center">
   <img src="screenshots/history.png" width="250"/>
   <img src="screenshots/detail.png" width="250"/>
@@ -237,139 +187,95 @@ Trello bağlantısı: [Trello Sprint 2 Board](https://trello.com/invite/b/68728a
 ---
 
 ### 🎤 Sprint Review
-- Arayüzlerin hepsi MVVM mimarisiyle geliştirildi.  
-- YOLOv8 modeli başarıyla eğitildi ancak Colab süresi yetersiz kaldı.  
-- Alternatif daha küçük boyutlu veri seti ile yeniden eğitim yapma kararlaştırıldı.  
-- Kullanıcıya yaş ve cinsiyet odaklı öneriler sunmak için GenAI prompt'larının geliştirilmesine karar verildi.
+- All screens developed with MVVM architecture.  
+- YOLOv8 successfully trained, though Colab runtime was insufficient.  
+- Decided to re-train with a smaller dataset.  
+- GenAI prompts to be refined for personalized age/gender recommendations.  
 
 ---
 
-### 🔁 Sprint Retrospektif
-
-| Kategori            | Notlar                                                                 |
-|---------------------|------------------------------------------------------------------------|
-| ✅ İyi Gidenler      | UI tasarımı ve model hazırlığı eksiksiz ilerledi.                     |
-| 🛠️ Geliştirilecekler | HAM10000 eğitimi Colab'da uzun sürdü, daha hafif veri seti kullanılmalı. |
-| 💡 Öğrenilenler      | Roboflow üzerindeki farklı veri setleri dikkatlice yeniden adlandırılarak birleştirilmeli, yoksa model eğitimi bozulabiliyor. |
-| 🔄 Takım Değişimi    | Scrum Master rolünü İrem Tektaş devraldı.                             |
-
-</details>
-
-<details>
-<summary><strong> <span style="font-size:32px">🧾 Sprint 3 Notları</span></strong></summary>
-
-### 🎯 Backend Entegrasyonu, Model Canlıya Alma & iOS Entegrasyonu
-Bu sprintte amaç; FastAPI tabanlı backend geliştirmesini PostgreSQL veritabanıyla tamamlamak, YOLOv8 ile iki farklı modeli eğitmek ve bu modelleri Railway üzerinden canlıya almak, ardından iOS uygulaması ekranlarına API entegrasyonlarını yapmak oldu.
+### 🔁 Sprint Retrospective
+| Category          | Notes                                                              |
+|-------------------|--------------------------------------------------------------------|
+| ✅ What went well | UI design and dataset preparation were executed successfully.      |
+| 🛠️ To improve    | HAM10000 training was slow on Colab, need lighter datasets.        |
+| 🔄 Team Changes  | Scrum Master role transitioned to İrem Tektaş.                      |
 
 ---
 
-### 📊 Tahmini Sprint Puanı: **47 Story Point**  
-### ✅ Tamamlanan Puan: **47 Story Point**
+## 🧾 Sprint 3 Notes
+
+### 🎯 Backend Integration, Model Deployment & iOS Integration
+This sprint focused on completing the FastAPI backend with PostgreSQL, training two YOLOv8 models, deploying them via Railway, and integrating the APIs into iOS screens.  
+
+**Estimated Points: 47**  
+**Completed Points: 47**
 
 ---
 
-### 📐 Puanlama Mantığı:
-- **3 SP** → Basit API geliştirme / küçük UI entegrasyonu  
-- **5 SP** → Tek ekran API entegrasyonu veya DB yapılandırması  
-- **8 SP** → Model eğitimi, canlıya alma veya backend ile mobil tam entegrasyon  
-- **13 SP** → Birden fazla adımı kapsayan karmaşık teknik görevler (model + API + deploy)
+### 📝 Product Backlog
 
----
-
-### 📝 Product Backlog Görevleri ve Puanlar
-
-| Görev                                                      | Puan | Durum         |
-|------------------------------------------------------------|------|---------------|
-| FastAPI backend geliştirme ve PostgreSQL geçişi           | 8    | ✅ Tamamlandı |
-| PostgreSQL bağlantı ve tablo yapısının oluşturulması       | 5    | ✅ Tamamlandı |
-| YOLOv8 ile iki farklı modelin eğitilmesi                   | 13   | ✅ Tamamlandı |
-| Modellerin Railway üzerinden canlıya alınması              | 8    | ✅ Tamamlandı |
-| iOS tarafında API entegrasyonlarının yapılması             | 8    | ✅ Tamamlandı |
-| Analiz sonucu ekran tasarımı ve veri bağlama               | 5    | ✅ Tamamlandı |
-
-
-**Not:** Sprint kapsamındaki tüm görevler **İrem Tektaş** tarafından tamamlanmıştır.
----
-
-### 📅 Daily Scrum
-📌 Scrum süreci WhatsApp ve Trello üzerinden yürütüldü.
-
----
-
-### 📸 Whatsapp Görüntüleri
-<p align="center">
-  <img src="screenshots/wp-5.PNG" width="250"/>
-  <img src="screenshots/wp-7.jpeg" width="250"/>
-</p>
+| Task                                           | Points | Status       |
+|------------------------------------------------|--------|--------------|
+| Develop FastAPI backend and PostgreSQL migration | 8      | ✅ Completed |
+| Configure PostgreSQL connection and tables       | 5      | ✅ Completed |
+| Train two YOLOv8 models                         | 13     | ✅ Completed |
+| Deploy models via Railway                       | 8      | ✅ Completed |
+| Implement API integrations on iOS               | 8      | ✅ Completed |
+| UI design and binding for analysis results      | 5      | ✅ Completed |
 
 ---
 
 ### 📌 Sprint Board Updates
-Trello bağlantısı: [Trello Sprint 3 Board](https://trello.com/invite/b/68728a90daf440f29514683e/ATTI1891fce45a84d7a7dff4990f6a8473d10BD13A86/yzta-grup-127)
+Trello: [Sprint 3 Board](https://trello.com/invite/b/68728a90daf440f29514683e/ATTI1891fce45a84d7a7dff4990f6a8473d10BD13A86/yzta-grup-127)
 
-#### 📷 Trello Görseli
 <p align="center">
   <img src="screenshots/trello-2.png" width="650"/>
 </p>
 
 ---
 
-### 📸 Ürün Screenshot
+### 📸 Screenshots
 
-#### 📱 iOS – Analiz & Sonuç Ekranları
+**iOS – Analysis & Results**  
 <p align="center">
   <img src="screenshots/app.png" width="250"/>
   <img src="screenshots/app-2.png" width="250"/>
   <img src="screenshots/app-3.png" width="250"/>
 </p>
 
-#### 📷 Backend & Model Canlıya Alma
+**Backend & Deployment**  
 <p align="center">
-  <img src="screenshots/endpoint.png" width="250"/>
+  <img src="screenshots/endpoint.png" width="500"/>
 </p>
 
-#### 📷 Model Grafikleri
+**Model Training Results**  
 <p align="center">
   <img src="screenshots/egitim-sonucu.png" width="500"/>
   <img src="screenshots/egitim-sonucu2.png" width="500"/>
 </p>
+
 ---
 
 ### 🎤 Sprint Review
-- **Tamamlananlar:**
-  - FastAPI backend PostgreSQL ile entegre edildi.
-  - YOLOv8 ile iki farklı model eğitildi.
-  - Modeller Railway üzerinden canlıya alındı.
-  - iOS tarafında API çağrıları yapılarak analiz sonucu ekranına veri bağlandı.
+- **Completed:**  
+  - Backend with PostgreSQL integration.  
+  - Two YOLOv8 models trained and deployed.  
+  - API integrations added to iOS app.  
 
-- **Teknik Not – Neden iki model eğitildi?**
-  DermaGenie’de iki farklı YOLOv8 modeli eğitilmesinin sebebi:
-  1. **Genel Cilt Sorunları Modeli**  
-     Akne, cilt kuruluğu, gözenek büyümesi gibi estetik problemlerin tespiti için optimize edildi.  
-  2. **Dermatolojik Risk Modeli**  
-     Melanom gibi potansiyel tehlikeli durumların tespiti için ayrı optimize edildi.  
-     Bu sayede kritik vakalarda yanlış pozitif oranı azaltıldı.
+- **Why two models?**  
+  1. **General Skin Issues Model** – optimized for acne, dryness, enlarged pores.  
+  2. **Dermatological Risk Model** – optimized for melanoma detection, reducing false positives.  
 
-  Bu ayrım sayesinde:
-  - Modeller kendi görevlerine odaklandı.
-  - Riskli durumlar için **daha güvenilir sonuçlar** elde edildi.
+This separation ensures **more reliable results** for critical cases.  
 
-- **Demo:**
-  - Kullanıcı fotoğraf çekiyor veya galeriden seçiyor.
-  - Görüntü API’ye gönderiliyor → Model analiz yapıyor.
-  - Tahmin sonucu iOS ekranında görselle birlikte görüntüleniyor.
-
-- **Uygulama Linkleri:**
-  - 📱 [TestFlight – DermaGenie](https://testflight.apple.com/join/pRPEqGBT)  
-  - 🌐 [Backend API – Railway](https://yzta-bootcamp-127-production-4638.up.railway.app/docs)
+**Demo:** User takes/selects a photo → image sent to API → AI returns predictions → results displayed in iOS app.  
 
 ---
 
-### 🔁 Sprint Retrospektif
+### 🔁 Sprint Retrospective
+| Category          | Notes                                                                  |
+|-------------------|------------------------------------------------------------------------|
+| ✅ What went well | Backend and mobile integration were smooth, models deployed successfully. |
 
-| Kategori            | Notlar                                                                 |
-|---------------------|------------------------------------------------------------------------|
-| ✅ İyi Gidenler      | Backend ve mobil entegrasyon sorunsuz tamamlandı, modeller hızlı şekilde canlıya alındı. |
-| 🛠️ Geliştirilecekler | Model sonuçları için confidence threshold ayarı optimize edilmeli.     |
-
-</details>
+---
